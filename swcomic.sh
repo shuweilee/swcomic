@@ -1,8 +1,6 @@
 #!/bin/bash
 
-
-tmp_col_file=".tmp_collections.json"
-col_file=".collections.json"
+source config
 
 # Get collections
 wget -q https://raw.githubusercontent.com/shuweilee/swcomic/master/"${col_file}" -O "${tmp_col_file}"
@@ -14,7 +12,8 @@ if [[ $? -ne 0 ]];then
 fi
 
 # Check new epsode
-python3 comic.py
+python3 comic.py "${browser}" "${tmp_col_file}" "${col_file}"
+rm "${tmp_col_file}"
 
 # Update collection
 git status -s | grep "${col_file}"
@@ -27,4 +26,3 @@ git add "${col_file}"
 git commit -m "Update collections"
 git push swcomic master
 
-rm "${tmp_col_file}"
