@@ -1,6 +1,5 @@
 #!/bin/bash
 
-browser="/usr/bin/firefox"
-tmp_col_file='.tmp.json'
-col_file='.collections.json'
-
+browser=/usr/bin/firefox
+tmp_col_file=.tmp.json
+col_file=.collections.json

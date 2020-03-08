@@ -1,0 +1,40 @@
+#!/bin/bash
+
+config_file="config"
+tmp_col_file=".tmp.json"
+col_file=".collections.json"
+s_link="/usr/local/bin/swcomic"
+
+browser_list=(
+    "chrome"
+    "firefox"
+)
+
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root"
+    exit 1
+fi
+
+for browser in "${browser_list[@]}"; do
+    browser_path=$(which "${browser}")
+    if [[ $? -eq 0 ]]; then
+        echo "Find ${browser}"
+
+        # Create config file
+        rm -f "${config_file}"
+        echo -e "#!/bin/bash\n" >> "${config_file}"
+        echo "browser=${browser_path}" >> "${config_file}"
+        echo "tmp_col_file=${tmp_col_file}" >> "${config_file}"
+        echo "col_file=${col_file}" >> "${config_file}"
+
+        # Create symbolic link
+        rm -f "${s_link}" || (echo "Remove symbolic link failed" && exit 1)
+        ln -s $(pwd)/swcomic.sh "${s_link}" || (echo "Create symbolic link failed" && exit 1)
+
+        echo "Configuration Finished"
+        exit 0
+    fi
+done
+
+echo "Configuration Failed"
+exit 1
