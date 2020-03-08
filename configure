@@ -33,7 +33,7 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-while getopts "btc:" opt; do
+while getopts "t:c:b:" opt; do
     case "${opt}" in
     t)
         tmp_col_file=$OPTARG
@@ -42,9 +42,9 @@ while getopts "btc:" opt; do
         col_file=$OPTARG
         ;;
     b)
-        #echo $OPTARG
-        browser_path=$2
+        browser_path=$OPTARG
         env_config "${browser_path}"
+        exit 0
         ;;
     esac
 done
