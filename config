@@ -1,5 +1,5 @@
 #!/bin/bash
 
-browser=/usr/bin/firefox
+browser=/mnt/c/Program\ Files\ (x86)/Google/Chrome/Application/chrome.exe
 tmp_col_file=.tmp.json
 col_file=.collections.json
