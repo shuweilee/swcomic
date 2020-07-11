@@ -24,5 +24,5 @@ fi
 
 git add "${col_file}"
 git commit -m "Update collections"
-git push swcomic master
+git push origin comicbus
 
