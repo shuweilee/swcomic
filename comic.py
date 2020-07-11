@@ -9,7 +9,7 @@ from sys import exit
 
 
 def create_browser(browser, path):
-    if browser == 'chrome':
+    if 'chrome' in browser:
         return webbrowser.Chrome(path)
     if browser == 'firefox':
         return webbrowser.Mozilla(path)
@@ -32,6 +32,7 @@ if __name__ == "__main__":
     col_file = args.col_file
 
     if False == browser_obj:
+        print("browser fail")
         exit(1)
 
     modified = False
@@ -60,11 +61,11 @@ if __name__ == "__main__":
                 comic['newest'] = comic['newest'] + 1
                 print('[updated]' + str(comic['name']) + '[' + str(comic['newest']) + '] is now available.')
                 modified = True
-                open_url = 'http://v.comicbus.com/online/comic-' + \
+                open_url = 'https://comicbus.live/online/a-' + \
                     str(comic['comic_id']) + '.html?ch=' + \
                     str(comic['newest']) + ''
                 read_list.append(open_url)
-                #browser_obj.open_new_tab(open_url)
+                browser_obj.open_new_tab(open_url)
     
     if modified == True:
         with open(col_file, 'w') as f:
